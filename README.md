@@ -46,6 +46,9 @@ Make sure the following are installed on your system
 - Go into project directory
 ```cd vehicle-service```
 
+- Build the project
+```mvn clean package```
+
 - Build the Docker image 
 ```docker build -t vehicle-service .```
 
