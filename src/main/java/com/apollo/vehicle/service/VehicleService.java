@@ -1,6 +1,8 @@
 package com.apollo.vehicle.service;
 
+import com.apollo.vehicle.entity.SoldVehicle;
 import com.apollo.vehicle.entity.Vehicle;
+import com.apollo.vehicle.repository.SoldVehicleRepository;
 import com.apollo.vehicle.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +13,11 @@ import java.util.Optional;
 public class VehicleService {
     private final VehicleRepository vehicleRepository;
 
-    public VehicleService(VehicleRepository vehicleRepository) {
+    private final SoldVehicleRepository soldVehicleRepository;
+
+    public VehicleService(VehicleRepository vehicleRepository, SoldVehicleRepository soldVehicleRepository) {
         this.vehicleRepository = vehicleRepository;
+        this.soldVehicleRepository = soldVehicleRepository;
     }
 
     /**
@@ -72,6 +77,9 @@ public class VehicleService {
         Optional.ofNullable(updatedVehicle.getPurchasePrice()).ifPresent(existingVehicle::setPurchasePrice);
         Optional.ofNullable(updatedVehicle.getFuelType()).ifPresent(existingVehicle::setFuelType);
 
+        Optional.ofNullable(updatedVehicle.getColor()).ifPresent(existingVehicle::setColor);
+        Optional.ofNullable(updatedVehicle.getCategory()).ifPresent(existingVehicle::setCategory);
+
         return vehicleRepository.save(existingVehicle);
     }
 
@@ -85,6 +93,15 @@ public class VehicleService {
             throw new IllegalArgumentException("Vehicle with VIN " + vin + " not found.");
         }
         vehicleRepository.deleteById(vin);
+    }
+
+
+    /**
+     * Retrieves all sold vehicles from the database
+     * @return a list of all sold vehicles
+     */
+    public List<SoldVehicle> getAllSoldVehicles() {
+        return soldVehicleRepository.findAll();
     }
 }
 

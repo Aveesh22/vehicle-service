@@ -50,4 +50,12 @@ public class Vehicle {
     @Column(nullable = false)
     @NotBlank(message = "Fuel type cannot be null")
     private String fuelType;
+
+    @Column(nullable = false)
+    @NotBlank(message = "Color cannot be null")
+    private String color;
+
+    @Column(nullable = false)
+    @NotBlank(message = "Category cannot be null")
+    private String category;
 }

@@ -1,5 +1,6 @@
 package com.apollo.vehicle.controller;
 
+import com.apollo.vehicle.entity.SoldVehicle;
 import com.apollo.vehicle.entity.Vehicle;
 import com.apollo.vehicle.service.VehicleService;
 import jakarta.validation.Valid;
@@ -28,6 +29,21 @@ public class VehicleController {
         List<Vehicle> vehicles = vehicleService.getAllVehicles();
         return ResponseEntity.ok(vehicles);
     }
+
+    /**
+     * Retrieve all vehicles
+     * @return a ResponseEntity containing the list of all vehicles with a 200 OK status
+     */
+    @GetMapping("/getSoldVehicles")
+    public ResponseEntity<List<SoldVehicle>> getAllSoldVehicles() {
+        List<SoldVehicle> vehicles = vehicleService.getAllSoldVehicles();
+        return ResponseEntity.ok(vehicles);
+    }
+    /**
+     * Since the Controller maps to the service class, I would want to define the actual business logic that finds
+     * the duplicates between them. I would define this in the sold vehicle repository.
+     * Return: a response entity with the JSON formatted soldVehicles List that I would get from the service and repository layers
+     */
 
     /**
      * Retrieve a specific vehicle by VIN
